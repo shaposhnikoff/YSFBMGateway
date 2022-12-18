@@ -18,5 +18,21 @@ services:
      - .env
 
 
+  mmdvmhost:
+    image: shaposhnikoff/mmdvmhost_new:ca569deaa37c8a143f19a94276ee5a1668dc89a4
+    container_name: mmdvmhost
+    volumes:
+      - ./config/MMDVM.ini.simplex:/config/MMDVM.ini:ro
+      - ./config/DMRIds.dat:/config/DMRIds.dat:ro
+      - ./config/FCSRooms.txt:/config/FCSRooms.txt
+      - ./log:/log
+      - ./shared-volume:/shared
+    devices:
+      - /dev/MMDVM:/dev/MMDVM
+    restart: always
+    env_file:
+     - .env
+
+
 networks:
   ysfbmgateway:
