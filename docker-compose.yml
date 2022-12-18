@@ -1,0 +1,22 @@
+version: '3.8' 
+services:
+  ysfbmgateway:
+    container_name: ysfbmgateway
+    image: shaposhnikoff/ysfbmgateway:latest
+    volumes:
+      - ./log:/log
+      - ./config:/config
+    command: python3 /app/ysfbmgateway.py /config/ysfbmgateway.ini
+    ports:
+      - 12345:12345
+    networks:
+      - ysfbmgateway
+#    links:
+#      - mmdvmhost
+    restart: always
+    env_file:
+     - .env
+
+
+networks:
+  ysfbmgateway:
