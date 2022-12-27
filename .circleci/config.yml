@@ -4,9 +4,6 @@ jobs:
     working_directory: /app
     docker:
       - image: docker:17.05.0-ce-git
-        auth:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_PASSWORD     
     steps:
       - checkout
       - setup_remote_docker
@@ -22,6 +19,7 @@ jobs:
           environment:
             IMAGE_NAME: ysfbmgateway
           command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker build -t ${IMAGE_NAME} .
             docker tag ${IMAGE_NAME} shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1}
             docker tag shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1} shaposhnikoff/${IMAGE_NAME}:latest
