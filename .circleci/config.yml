@@ -21,15 +21,15 @@ jobs:
           name: Build application Docker image
           command: |
             docker build -t ysfbmgateway .
-            docker tag ysfbmgateway shaposhnikoff/ysfbmgateway:latest
+            docker tag ysfbmgateway shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1}
+            docker tag shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1} shaposhnikoff/ysfbmgateway:latest
+            
       - deploy:
           name: Push application Docker image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              login="$(aws ecr get-login)"
-              ${login}
-              docker tag app "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              docker push ysfbmgateway shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1}
+              docker push ysfbmgateway shaposhnikoff/ysfbmgateway:latest
             fi
 
 
