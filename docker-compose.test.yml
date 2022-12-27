@@ -1,0 +1,19 @@
+version: '3.8' 
+services:
+  ysfbmgateway:
+    container_name: ysfbmgateway
+    image: shaposhnikoff/ysfbmgateway:latest
+    volumes:
+      - ./config:/etc/ysfbmgateway
+      - ./data:/data
+    ports:
+      - 9090:9090
+    networks:
+      - ham
+    restart: always
+    env_file:
+     - .env
+
+
+networks:
+  ham:
