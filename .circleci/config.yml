@@ -5,8 +5,8 @@ jobs:
     docker:
       - image: docker:17.05.0-ce-git
         auth:
-          username: mydockerhub-user  # can specify string literal values
-          password: $DOCKERHUB_PASSWORD  # or project environment variable reference      
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD     
     steps:
       - checkout
       - setup_remote_docker
