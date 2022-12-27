@@ -19,17 +19,19 @@ jobs:
             pip3 install awscli
       - run:
           name: Build application Docker image
+          environment:
+            IMAGE_NAME: ysfbmgateway
           command: |
-            docker build -t ysfbmgateway .
-            docker tag ysfbmgateway shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1}
-            docker tag shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1} shaposhnikoff/ysfbmgateway:latest
+            docker build -t ${IMAGE_NAME} .
+            docker tag ${IMAGE_NAME} shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1}
+            docker tag shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1} shaposhnikoff/${IMAGE_NAME}:latest
             
       - deploy:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              docker push shaposhnikoff/ysfbmgateway:${CIRCLE_SHA1}
-              docker push shaposhnikoff/ysfbmgateway:latest
+              docker push shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1}
+              docker push shaposhnikoff/${IMAGE_NAME}:latest
             fi
 
 
