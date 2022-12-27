@@ -19,8 +19,7 @@ jobs:
           environment:
             IMAGE_NAME: ysfbmgateway
           command: |
-            echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
-            docker build -t ${IMAGE_NAME} .
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             docker tag ${IMAGE_NAME} ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1}
             docker tag ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1} shaposhnikoff/${IMAGE_NAME}:latest
             
@@ -31,6 +30,9 @@ jobs:
               docker push shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1}
               docker push shaposhnikoff/${IMAGE_NAME}:latest
             fi
+
+
+
 
 
 
