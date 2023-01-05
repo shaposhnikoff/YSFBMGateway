@@ -29,5 +29,6 @@ jobs:
             IMAGE_NAME: ysfbmgateway
           command: |
             docker build -t ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1} .
-            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            #echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             docker push ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1}
