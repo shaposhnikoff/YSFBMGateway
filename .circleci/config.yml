@@ -48,6 +48,7 @@ jobs:
           environment:
             IMAGE_NAME: ysfbmgateway
           command: |
+            docker build . -t ${IMAGE_NAME} 
             docker tag ${IMAGE_NAME} ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1}
             docker tag ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1} shaposhnikoff/${IMAGE_NAME}:latest
 
