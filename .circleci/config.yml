@@ -43,13 +43,24 @@ jobs:
           paths:
             - /caches/app.tar
 
-            
+      - run:
+          name: Build application Docker image
+          environment:
+            IMAGE_NAME: ysfbmgateway
+          command: |
+            docker tag ${IMAGE_NAME} ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1}
+            docker tag ${CIRCLE_USERNAME}/${IMAGE_NAME}:${CIRCLE_SHA1} shaposhnikoff/${IMAGE_NAME}:latest
+
       - deploy:
           name: Push application Docker image
+          environment:
+            IMAGE_NAME: ysfbmgateway
           command: |
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              login="$(aws ecr get-login)"
-              ${login}
-              docker tag app "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
+              docker push shaposhnikoff/${IMAGE_NAME}:${CIRCLE_SHA1}
+              docker push shaposhnikoff/${IMAGE_NAME}:latest
+              #login="$(aws ecr get-login)"
+              #${login}
+              #docker tag app "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
+              #docker push "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
             fi
