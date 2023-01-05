@@ -40,7 +40,7 @@ jobs:
             - /caches/app.tar
       - run: 
           name: Docker login
-          command: bash run_magic_pod_test.sh
+          command: bash docker_login.sh
             
       - deploy:
           name: Push application Docker image
