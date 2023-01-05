@@ -1,4 +1,5 @@
 # YSFBMGateway
+
 Experimental gateway for using YSF Direct on BM servers.
 
 Antonio IU5JAE's YSFBMGateway works in conjunction with G4KLX's MMDVMHost software. It allows C4FM hotspots and repeaters to connect directly to the Brandmeister Master Server that has the YSF Direct protocol active, logging in with the Callsign and Password set in BM self-care.
