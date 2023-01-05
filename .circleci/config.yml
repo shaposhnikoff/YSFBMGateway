@@ -19,7 +19,7 @@ jobs:
             pip3 install awscli
             
       - setup_remote_docker:
-          version: 20.10.14
+          version: 20.10.18
           docker_layer_caching: true
 
       
